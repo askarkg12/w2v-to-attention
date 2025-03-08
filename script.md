@@ -1,0 +1,108 @@
+I would like to offer a perspective into machine learning that I find intuitive. Background in maths, machine learning, etc. is going to help you understand me, but my hope is to make this video intuitive enough for anyone to be able to follow.
+
+I would like to cover the intuitive logic that goes behind transformers, covering a possible way one can derive and arrive to the same conclusion as KV matix multiplicatoins in transformers.
+
+I will first cover word2vec, moving on to BERT and then to transformers.
+
+I would like to preface everything with a mention of a few important things:
+- We have the advantage of hindsight when deriving things, and thus all the suggestions I make will feel very convenient.
+- Computers, and especially GPUs are very fast at doing linear algebra. Specifically we work with tensors. A tensor is a generalisation of vectors, matrices, single values, 4-dimensional arrays, etc.
+
+# Flow of data, functions, etc.
+First, lets try to visualise what can happen to embeddings. I think we can start by treating an LLM as a black box at first, and progressively try to uncover every single bit, by looking into fundamentals.
+
+```mermaid
+graph LR
+    Input --> Magic[Magic Box]
+    Magic --> Output
+```
+
+
+# Word2Vec
+Lets consider the previous diagram, but in the context of a word2vec model.
+
+```mermaid
+graph LR
+    Input --> Magic[Magic Box]
+    Magic --> Output
+```
+
+Word2vec gave us a way to represent words as vectors. Trained on a large enough body of text (known as a corpus), it gives us vectors that "capture meaning of words". 
+
+Now, what does it mean for a word to have a meaning? Or what does it mean for it to be captured. I'd like to avoid having a metaphysical discussion, and instead we can try to put boundaries on what we mean by "meaning".
+
+In word2vec's case, there is a sliding window of a fixed size travelling across the corpus. For each collection of words, we can do one of the two things: 
+
+1. Given a word in the conter of the window, predict neighbouring words. AKA "Continious Bag of Words or CBOW"
+
+```mermaid
+graph LR
+    Word1 --> Magic
+    Word2 --> Magic
+    Word4 --> Magic
+    Word5 --> Magic
+    Magic --> Word3
+```
+
+2. Given all the words in the window, predict the word in the center. aka "Skip-Gram"
+```mermaid
+graph LR
+    Word3 --> Magic
+    Magic --> Word1
+    Magic --> Word2
+    Magic --> Word4
+    Magic --> Word5
+```
+
+Pssst, here is a secret: you can see it as the same thing - try predicting e word based on its neighbours. But let's first focus on the first case.
+
+Let's investigate further how CBOW internally works:
+
+```mermaid
+graph LR
+    Word1 --> Magic
+    Word2 --> Magic
+    Word4 --> Magic
+    Word5 --> Magic
+    Magic --> Word3
+```
+As you probably know, NN's work with numbers. We cannot really do meaningful maths with words as they are - we need to somehow figure out how to represent them as numbers.
+
+Let's say we have a vocabulary of 10,000 words. We can then assign a number to each word.
+We can literally use a lookup table, like 5 means "apple", 14 means "banana", etc.
+
+```mermaid
+graph LR
+    Word1 --> 14
+    14 --> Magic
+    Word2 --> 54
+    54 --> Magic
+    Word4 --> 3
+    3 --> Magic
+    Word5 --> 22
+    22 --> Magic
+    Magic --> 7
+    7 --> Word3
+```
+
+Sure, we can use numbers for each word, but what does it mean for a word to be close to another?
+Does a word number 14 have anything to do with a word number 13?
+Or is it twice the word number 7?
+Is the word number 1 the best? Or is it the strongest? Or what?
+
+We probably want to have a more sophisticated way of representing words. How about instaed of picking a single number, we use a bunch of numbers as a group to represent a word, i.e. a vector.
+
+```mermaid
+graph LR
+    Word1 --> 14
+    14 --> Vector[42,4, 34,123,34]
+```
+
+Now, we can say that the word "apple" is close to "banana" if the vector for "apple" is close to the vector for "banana".
+
+Now, with vectors we can do some cool stuff. For example, we can use an arbitrary number of different values to represent a word. Whilst, at the same time, we can still compare words to each other. The above is true provided that our vectors are of the same size.
+
+Another cool thing is that vectors are still tensors, and we can use matrix multiplication to transform them.
+
+
+
