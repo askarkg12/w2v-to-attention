@@ -105,4 +105,53 @@ Now, with vectors we can do some cool stuff. For example, we can use an arbitrar
 Another cool thing is that vectors are still tensors, and we can use matrix multiplication to transform them.
 
 
+```mermaid
+graph LR
+    Word1 --> 14
+    14 --> Vector1[42,4, 34,123,34]
+    Vector1 --> Magic
+    Word2 --> 54
+    54 --> Vector2
+    Vector2 --> Magic
+    Word4 --> 3
+    3 --> Vector4
+    Vector4 --> Magic
+    Word5 --> 22
+    22 --> Vector5
+    Vector5 --> Magic
+    Magic --> 7
+    7 --> Word3
+```
 
+So what does magic do here? Remember, we basically only have algebra operations to work with. 
+In w2v specifically, we take an average of them, and then multiply it by a matrix.
+Let's say that our vectors are of a fixed size 5, and our total vocabulary is 100.
+
+The goal of the magic box is to take a vector of size 5, and provide an output that gives us a some prediction on what the new word is supposed to be. If we multiply a vector of size 5 by a matrix of size 5x100, we get a vector of size 100.
+
+We can then decide that the goal of the new vector to have a higher value at index i if the word i is more likely to be the next word.
+
+We can then apply a softmax function to the vector to convert values from arbitrary range to a range between 0 and 1.
+
+
+
+```mermaid
+graph LR
+    Word1 --> 14
+    14 --> Vector1[42,4, 34,123,34]
+    Vector1 --> Magic[Sum/Average Size 5]
+    Word2 --> 54
+    54 --> Vector2[Vector size 5] 
+    Vector2 --> Magic
+    Word4 --> 3
+    3 --> Vector4[Vector size 5]
+    Vector4 --> Magic
+    Word5 --> 22
+    22 --> Vector5[Vector size 5]
+    Vector5 --> Magic
+    Magic --> Magic2[Vector size 100]
+    Magic2 --> Softmax[Predictions 100]
+    Softmax --> Word3
+```
+
+AAA
