@@ -8,4 +8,6 @@ dependencies = [
     "manim>=0.19.0",
     "manim-voiceover[azure,gtts]>=0.3.7",
     "setuptools>=76.0.0",
+    "scipy>=1.11.0",
+    "ffmpeg-python>=0.2.0",
 ]

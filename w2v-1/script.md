@@ -1,8 +1,14 @@
-I would like to offer a perspective into machine learning that I find intuitive. Background in maths, machine learning, etc. is going to help you understand me, but my hope is to make this video intuitive enough for anyone to be able to follow.
+1. Machine learning is at the center of the world currently, especially LLMs based on transformers. But what exactly are transformers? You may or may not already have an indepth knowledge of what happens inside the black box. 
 
-I would like to cover the intuitive logic that goes behind transformers, covering a possible way one can derive and arrive to the same conclusion as KV matix multiplicatoins in transformers.
+2. I recommend a video by 3Blue1Brown, which I think does a great job at explaining the internal mechanics behind transformers.
 
-I will first cover word2vec, moving on to BERT and then to transformers.
+3. I want to offer yet another perspective on the topic, one that I find more intuitive. I will try to avoid using non-mathematical concepts to derive the same results. However, I will likely use the non-mathematical concepts to explain the intuition behind the topic.
+
+4. Background in maths, machine learning and related fields will help you follow along and understand. However, I hope to make this video intuitive enough for anyone to be able to follow.
+
+5. I would like to cover the intuitive logic that goes behind transformers, covering a possible way one can derive and arrive to the same conclusion as KV matix multiplicatoins in transformers.
+
+6. I will first cover word2vec, moving on to BERT and then to transformers.
 
 I would like to preface everything with a mention of a few important things:
 - We have the advantage of hindsight when deriving things, and thus all the suggestions I make will feel very convenient.
